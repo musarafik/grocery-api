@@ -18,15 +18,20 @@ const updateGroceryItemById = (req, res) => {
 
 const addGroceryItem = (req, res) => {
     console.log(req.body);
-    let newGroceryItem = new GroceryItem.GroceryItem({
-        name: req.body.name,
-        quantity: req.body.quantity,
-        isReoccurring: req.body.isReoccurring
-    });
+    // let newGroceryItem = new GroceryItem.GroceryItem({
+    //     name: req.body.name,
+    //     quantity: req.body.quantity,
+    //     isReoccurring: req.body.isReoccurring,
+        
+    // });
+    let newGroceryItem = new GroceryItem.GroceryItem(req.body);
     newGroceryItem.save((err) => {
         if(err){
             console.error(err);
-            res.sendStatus(400);
+            res.send({
+                "error": err,
+                "status code": 400
+            });
         }
         else{
             console.log(`Saved ${newGroceryItem.quantity} of ${newGroceryItem.name} which is reoccurring ${newGroceryItem.isReoccurring}`);
