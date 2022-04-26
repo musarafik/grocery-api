@@ -17,17 +17,9 @@ const updateGroceryItemById = (req, res) => {
 }
 
 const addGroceryItem = (req, res) => {
-    console.log(req.body);
-    // let newGroceryItem = new GroceryItem.GroceryItem({
-    //     name: req.body.name,
-    //     quantity: req.body.quantity,
-    //     isReoccurring: req.body.isReoccurring,
-        
-    // });
-    let newGroceryItem = new GroceryItem.GroceryItem(req.body);
+    let newGroceryItem = new GroceryItem(req.body);
     newGroceryItem.save((err) => {
         if(err){
-            console.error(err);
             res.send({
                 "error": err,
                 "status code": 400
