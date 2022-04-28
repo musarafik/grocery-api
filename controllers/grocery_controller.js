@@ -25,7 +25,15 @@ const getAllGroceryItems = (req, res) => {
 }
 
 const deleteGroceryItemByName = (req, res) => {
-    console.log(req.params.id);
+    const nameToDelete = req.params.name;
+    GroceryItem.deleteOne({name: nameToDelete}, (err) => {
+        if(err){
+            res.status(400).send(err);
+        }
+        else{
+            res.status(200).send("Deleted grocery item");
+        }
+    });
 }
 
 const updateGroceryItemByName = (req, res) => {
