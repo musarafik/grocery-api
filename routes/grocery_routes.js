@@ -2,21 +2,21 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    getGroceryItemById,
+    getGroceryItemByName,
     getAllGroceryItems,
     addGroceryItem,
-    deleteGroceryItemById,
-    updateGroceryItemById
+    deleteGroceryItemByName,
+    updateGroceryItemByName
 } = require("../controllers/grocery_controller");
 
-router.get("/groceryitems/:id", getGroceryItemById);
+router.get("/groceryitems/:name", getGroceryItemByName);
 
 router.get("/groceryitems", getAllGroceryItems);
 
 router.post("/groceryitems", addGroceryItem);
 
-router.delete("/groceryitems/:id", deleteGroceryItemById);
+router.delete("/groceryitems/:name", deleteGroceryItemByName);
 
-router.put("/groceryitems/:id", updateGroceryItemById);
+router.put("/groceryitems/:name", updateGroceryItemByName);
 
 module.exports = router;

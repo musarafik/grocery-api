@@ -10,11 +10,9 @@ const GroceryItemSchema = new Schema({
     },
     "quantity": {
         type: Number,
-        required: true
     },
     "isReoccurring": {
         type: Boolean,
-        required: true
     },
     "frequency": {
         type: Number,
@@ -22,7 +20,6 @@ const GroceryItemSchema = new Schema({
     },
     "source": {
         type: String,
-        required: true,
         enum: ["Kroger", "HEB", "Walmart", "Trader Joe's", "Meijer", "Whole Foods", "Target", "Other"]
     },
     "dateSubmitted": {

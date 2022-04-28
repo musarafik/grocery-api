@@ -1,20 +1,32 @@
 let GroceryItem = require("../models/grocery_item");
 
-const errorMessage = (err) => {
+const createErrorMessage = (err) => {
     return {
         "error": err,
         "status code": 400
     };
 }
 
-const getGroceryItemById = (req, res) => {
-    console.log(req.params.id);
+const getGroceryItemByName = (req, res) => {
+    const nameToFind = req.params.name;
+    GroceryItem.findOne({name: nameToFind}, (err, groceryItem) => {
+        console.log(groceryItem);
+        if(err){
+            createErrorMessage(err);
+        }
+        else{
+            res.send({
+                "grocery item": groceryItem,
+                "status code": 200
+            });
+        }
+    });
 }
 
 const getAllGroceryItems = (req, res) => {
     GroceryItem.find((err, groceryItems) => {
         if(err){
-            res.send(errorMessage(err));
+            res.send(createErrorMessage(err));
         }
         else{
             res.send({
@@ -25,11 +37,11 @@ const getAllGroceryItems = (req, res) => {
     });
 }
 
-const deleteGroceryItemById = (req, res) => {
+const deleteGroceryItemByName = (req, res) => {
     console.log(req.params.id);
 }
 
-const updateGroceryItemById = (req, res) => {
+const updateGroceryItemByName = (req, res) => {
     console.log(req.params.id);
 }
 
@@ -37,7 +49,7 @@ const addGroceryItem = (req, res) => {
     let newGroceryItem = new GroceryItem(req.body);
     newGroceryItem.save((err) => {
         if(err){
-            res.send(errorMessage(err));
+            res.send(createErrorMessage(err));
         }
         else{
             console.log(`Saved ${newGroceryItem.quantity} of ${newGroceryItem.name} which is reoccurring ${newGroceryItem.isReoccurring}`);
@@ -48,8 +60,8 @@ const addGroceryItem = (req, res) => {
 
 module.exports = {
     getAllGroceryItems,
-    getGroceryItemById,
-    deleteGroceryItemById,
-    updateGroceryItemById,
+    getGroceryItemByName,
+    deleteGroceryItemByName,
+    updateGroceryItemByName,
     addGroceryItem
 }
