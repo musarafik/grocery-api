@@ -6,7 +6,8 @@ const {
     getAllGroceryItems,
     addGroceryItem,
     deleteGroceryItemByName,
-    updateGroceryItemByName
+    updateGroceryItemByName,
+    deleteAllGroceryItems
 } = require("../controllers/grocery_controller");
 
 router.get("/groceryitems/:name", getGroceryItemByName);
@@ -18,5 +19,7 @@ router.post("/groceryitems", addGroceryItem);
 router.delete("/groceryitems/:name", deleteGroceryItemByName);
 
 router.put("/groceryitems/:name", updateGroceryItemByName);
+
+router.delete("/groceryitems", deleteAllGroceryItems);
 
 module.exports = router;

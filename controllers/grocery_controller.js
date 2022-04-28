@@ -1,24 +1,14 @@
 let GroceryItem = require("../models/grocery_item");
 
-const createErrorMessage = (err) => {
-    return {
-        "error": err,
-        "status code": 400
-    };
-}
-
 const getGroceryItemByName = (req, res) => {
     const nameToFind = req.params.name;
     GroceryItem.findOne({name: nameToFind}, (err, groceryItem) => {
         console.log(groceryItem);
         if(err){
-            createErrorMessage(err);
+            res.status(400).send(err);
         }
         else{
-            res.send({
-                "grocery item": groceryItem,
-                "status code": 200
-            });
+            res.status(200).send("Got grocery item");
         }
     });
 }
@@ -26,13 +16,10 @@ const getGroceryItemByName = (req, res) => {
 const getAllGroceryItems = (req, res) => {
     GroceryItem.find((err, groceryItems) => {
         if(err){
-            res.send(createErrorMessage(err));
+            res.status(400).send(err);
         }
         else{
-            res.send({
-                "grocery items": groceryItems,
-                "status code": 200
-            });
+            res.status(200).send("Got all grocery items");
         }
     });
 }
@@ -49,11 +36,21 @@ const addGroceryItem = (req, res) => {
     let newGroceryItem = new GroceryItem(req.body);
     newGroceryItem.save((err) => {
         if(err){
-            res.send(createErrorMessage(err));
+            res.status(400).send(err);
         }
         else{
-            console.log(`Saved ${newGroceryItem.quantity} of ${newGroceryItem.name} which is reoccurring ${newGroceryItem.isReoccurring}`);
-            res.sendStatus(201);
+            res.status(201).send("Saved grocery item");
+        }
+    });
+}
+
+const deleteAllGroceryItems = (req, res) => {
+    GroceryItem.deleteMany({}, (err) => {
+        if(err){
+            res.status(400).send(err);
+        }
+        else{
+            res.status(200).send("Deleted all grocery items");
         }
     });
 }
@@ -63,5 +60,6 @@ module.exports = {
     getGroceryItemByName,
     deleteGroceryItemByName,
     updateGroceryItemByName,
-    addGroceryItem
+    addGroceryItem,
+    deleteAllGroceryItems
 }
