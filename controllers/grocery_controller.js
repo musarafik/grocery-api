@@ -8,7 +8,7 @@ const getGroceryItemByName = (req, res) => {
             res.status(400).send(err);
         }
         else{
-            res.status(200).send("Got grocery item");
+            res.status(200).send(groceryItem);
         }
     });
 }
@@ -19,7 +19,7 @@ const getAllGroceryItems = (req, res) => {
             res.status(400).send(err);
         }
         else{
-            res.status(200).send("Got all grocery items");
+            res.status(200).send(groceryItems);
         }
     });
 }
